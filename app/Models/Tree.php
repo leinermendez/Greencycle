@@ -7,45 +7,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tree extends Model
 {
+    
     protected $fillable = [
         'user_id',
-        'species_id',
-        'seed_type',
-        'level',
-        'care_count',
-        'health',
-        'status',
-        'auto_water_until',
-        'accelerator_until',
-        'planted_at',
+        'seed_type_id',
     ];
 
     protected $casts = [
-        'auto_water_until' => 'datetime',
-        'accelerator_until' => 'datetime',
+        'last_cared_at' => 'datetime',
+        'next_care_at' => 'datetime',
+        'last_decay_at' => 'datetime',
         'planted_at' => 'datetime',
     ];
-    //$casts hace que las fechas sean tratadas como fechas por Laravel.
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function species(): BelongsTo
+    public function seedType(): BelongsTo
     {
-        return $this->belongsTo(SpeciesCatalog::class);
+        return $this->belongsTo(SeedType::class);
     }
-
-
-    //RELACIONES 
-    public function user(): BelongsTo
-{
-    return $this->belongsTo(User::class);
-}
-
-public function species(): BelongsTo
-{
-    return $this->belongsTo(SpeciesCatalog::class);
-}
 }
